@@ -19,6 +19,8 @@
 
 package org.jclif.example;
 
+import java.util.List;
+
 import org.jclif.annotation.Command;
 import org.jclif.annotation.Handler;
 import org.jclif.annotation.Option;
@@ -29,7 +31,7 @@ import org.jclif.type.ParameterType;
  * Emulate fit getch options
  *
  */
-@Command(identifier="fetch", description="")
+@Command(identifier="fetch", description="Download objects and refs from another repository")
 public class GitFetch 
 {
 	@Option(identifier="v", longIdentifier="verbose", description="be more verbose")
@@ -38,14 +40,14 @@ public class GitFetch
 	@Option(identifier="q", longIdentifier="quite", description="be more quite")
 	private Boolean quite;
 	
-	@Option(identifier="t", longIdentifier="Tags", description="fetch all tags and associated objects")
+	@Option(identifier="t", longIdentifier="tags", description="fetch all tags and associated objects")
 	private Boolean tags;
 	
 	@Parameter(identifier="group", type=ParameterType.STRING, required=true)
 	private String group;
 	
-	@Parameter(identifier="repository", type=ParameterType.STRING)
-	private String repository;
+	@Parameter(identifier="repository", multiValued=true, type=ParameterType.STRING)
+	private List<String> repository;
 	
 	@Handler
 	public void execute() {
@@ -65,7 +67,7 @@ public class GitFetch
 		this.tags = tags;
 	}
 	
-	public void setRepository(String repository) {
+	public void setRepository(List<String> repository) {
 		this.repository = repository;
 	}
 	

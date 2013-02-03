@@ -31,7 +31,7 @@ import org.jclif.type.ParameterType;
  * Emulate fit git commit options
  *
  */
-@Command(identifier="commit", description="")
+@Command(identifier="commit", description="Record changes to the repository")
 public class GitCommit 
 {
 	@Option(identifier="v", longIdentifier="verbose", description="how diff in commit message template")
