@@ -19,9 +19,13 @@
 
 package org.jclif.example;
 
+import java.io.File;
+
 import org.jclif.annotation.Command;
 import org.jclif.annotation.Handler;
+import org.jclif.annotation.Option;
 import org.jclif.annotation.Parameter;
+import org.jclif.type.ParameterType;
 
 /**
  * Emulate fit git commit options
@@ -30,22 +34,45 @@ import org.jclif.annotation.Parameter;
 @Command(identifier="commit", description="")
 public class GitCommit 
 {
-	@Parameter(identifier="v", longIdentifier="verbose")
-	public Boolean verbose;
+	@Option(identifier="v", longIdentifier="verbose", description="how diff in commit message template")
+	private Boolean verbose;
 	
-	@Parameter(identifier="a", longIdentifier="append")
-	public Boolean append;
+	@Option(identifier="q", longIdentifier="quite", description="suppress summary after successful commit")
+	private Boolean quite;
 	
-	@Parameter(identifier="f", longIdentifier="force")
-	public Boolean force;
+	@Option(identifier="F", longIdentifier="file", type=ParameterType.FILE, description="read message from file")
+	private File file;
 	
-	@Parameter(identifier="m", longIdentifier="multiple")
-	public Boolean multiple;
+	@Option(identifier="m", longIdentifier="message", type=ParameterType.STRING, description="commit message")
+	private String message;
+	
+	@Parameter(identifier="filepattern", description="file pattern of files to commit")
+	private String filePattern;
 	
 	@Handler
 	public void execute() {
-		System.out.println(String.format("git commit called [verbose=%s,append=%s,foce=%s,multiple=%s]",
-				verbose, append, force, multiple));
+		System.out.println(String.format("git commit called [verbose=%s,quite=%s,file=%s,message=%s,filePattern=%s]",
+				verbose, quite, file, message, filePattern));
 	}
     
+	public void setVerbose(Boolean b) {
+		this.verbose = b;
+	}
+    
+	public void setQuite(Boolean quite) {
+		this.quite = quite;
+	}
+
+	public void setFile(File file) {
+		this.file = file;
+	}
+	
+	public void setMessage(String message) {
+		this.message = message;
+	}
+	
+	public void setFilePattern(String pattern) {
+		this.filePattern =  pattern;
+	}	
+	
 }

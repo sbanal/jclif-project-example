@@ -21,7 +21,9 @@ package org.jclif.example;
 
 import org.jclif.annotation.Command;
 import org.jclif.annotation.Handler;
+import org.jclif.annotation.Option;
 import org.jclif.annotation.Parameter;
+import org.jclif.type.ParameterType;
 
 /**
  * Emulate fit getch options
@@ -30,22 +32,45 @@ import org.jclif.annotation.Parameter;
 @Command(identifier="fetch", description="")
 public class GitFetch 
 {
-	@Parameter(identifier="v", longIdentifier="verbose")
-	public Boolean verbose;
+	@Option(identifier="v", longIdentifier="verbose", description="be more verbose")
+	private Boolean verbose;
 	
-	@Parameter(identifier="a", longIdentifier="append")
-	public Boolean append;
+	@Option(identifier="q", longIdentifier="quite", description="be more quite")
+	private Boolean quite;
 	
-	@Parameter(identifier="f", longIdentifier="force")
-	public Boolean force;
+	@Option(identifier="t", longIdentifier="Tags", description="fetch all tags and associated objects")
+	private Boolean tags;
 	
-	@Parameter(identifier="m", longIdentifier="multiple")
-	public Boolean multiple;
+	@Parameter(identifier="group", type=ParameterType.STRING, required=true)
+	private String group;
+	
+	@Parameter(identifier="repository", type=ParameterType.STRING)
+	private String repository;
 	
 	@Handler
 	public void execute() {
-		System.out.println(String.format("git pull called [verbose=%s,append=%s,foce=%s,multiple=%s]",
-				verbose, append, force, multiple));
+		System.out.println(String.format("git pull called [verbose=%s,quite=%s,tags=%s,repo=%s,group=%s]",
+				verbose, quite, tags, repository, group));
+	}
+
+	public void setVerbose(Boolean b) {
+		this.verbose = b;
 	}
     
+	public void setQuite(Boolean quite) {
+		this.quite = quite;
+	}
+
+	public void setTags(Boolean tags) {
+		this.tags = tags;
+	}
+	
+	public void setRepository(String repository) {
+		this.repository = repository;
+	}
+	
+	public void setGroup(String group) {
+		this.group =  group;
+	}	
+	
 }
