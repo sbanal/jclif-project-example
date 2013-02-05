@@ -8,6 +8,7 @@
 	<packaging>jar</packaging>
 
 	<name>jclif-project-example</name>
+	<description>This is an example project which uses jclif API and jclif codegen maven plugin</description>
 	<url>http://www.jclif.org</url>
 
 	<properties>
